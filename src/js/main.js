@@ -7,9 +7,9 @@ function createSlider() {
     <label for="max" class="inputValue">Max:<input type="text" id="max" data-input="max"/></label>
 
     <div class="rangeslider">
-      <input data-thumb="min" name="range_1" type="range" min="1" max="100" value="10"
+      <input data-thumb="min" name="range_1" type="range" min="1" value="10"
       />
-      <input data-thumb="max" name="range_1" type="range" min="1" max="100" value="90"
+      <input data-thumb="max" name="range_1" type="range" max="100" value="90"
       />
     </div>
     `,
@@ -51,9 +51,9 @@ function createSlider() {
           addValue(inputs, scrollValue, elem);
 
           if (minVal > maxVal - 5) {
-            min.value = maxVal.value - 5;
+            min.value = maxVal - 5;
           } else if (max.value - 5 < min.value) {
-            max.value = 5 + minVal.value;
+            max.value = 5 + minVal;
           }
         });
       }
