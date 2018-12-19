@@ -5,11 +5,10 @@ function createSlider() {
       `
     <label for="min" class="inputValue">Min:<input type="text" id="min" data-input="min"/></label>
     <label for="max" class="inputValue">Max:<input type="text" id="max" data-input="max"/></label>
-
     <div class="rangeslider">
-      <input data-thumb="min" name="range_1" type="range" min="1" value="10"
+      <input data-thumb="min" name="range_1" type="range" min="1" max="100" value="10"
       />
-      <input data-thumb="max" name="range_1" type="range" max="100" value="90"
+      <input data-thumb="max" name="range_1" type="range" min="1" max="100" value="90"
       />
     </div>
     `,
@@ -18,44 +17,34 @@ function createSlider() {
   createElements(document.querySelector('.component'));
 
   const thumbs = document.querySelectorAll('[data-thumb]');
-  const inputs = document.querySelectorAll('[data-input]');
 
-  const addValue = (inputs, thumbValue, elem) => {
-    inputs.forEach((element) => {
-      if (element.dataset.input === elem) {
-        element.setAttribute('value', thumbValue);
-      }
-    });
+  const addValue = (minValue, maxValue) => {
+    const minInput = document.querySelector('[data-input="min"]');
+    const maxInput = document.querySelector('[data-input="max"]');
+    minInput.value = minValue;
+    maxInput.value = maxValue;
   };
+  addValue(
+    document.querySelector('[data-thumb="min"]').value,
+    document.querySelector('[data-thumb="max"]').value,
+  );
 
   thumbs.forEach((element) => {
-    element.addEventListener('mousedown', (e) => {
-      const thumbValue = e.target.value;
+    element.addEventListener('input', (e) => {
       const elem = element.dataset.thumb;
+      const min = document.querySelector('[data-thumb="min"]');
+      const max = document.querySelector('[data-thumb="max"]');
+      const minVal = parseInt(min.value);
+      const maxVal = parseInt(max.value);
 
-      addValue(inputs, thumbValue, elem);
+      addValue(min.value, max.value);
 
-
-      
-      
-      if (e) {
-        
-        element.addEventListener('mousemove', (e) => {
-          let min = document.querySelector('[data-thumb="min"]');
-          let max = document.querySelector('[data-thumb="max"]');
-          let minVal = parseInt(min.value);
-          let maxVal = parseInt(max.value);
-
-          
-          const scrollValue = e.target.value;
-          addValue(inputs, scrollValue, elem);
-
-          if (minVal > maxVal - 5) {
-            min.value = maxVal - 5;
-          } else if (max.value - 5 < min.value) {
-            max.value = 5 + minVal;
-          }
-        });
+      if (elem === 'min' && minVal > maxVal - 5) {
+        min.value = maxVal - 5;
+        addValue(min.value, max.value);
+      } else if (elem === 'max' && maxVal < minVal + 5) {
+        max.value = minVal + 5;
+        addValue(min.value, max.value);
       }
     });
   });
