@@ -1,16 +1,31 @@
 function createSlider() {
   const createElements = (container) => {
     container.insertAdjacentHTML(
-      'beforeend',
-      `
-    <label for="min" class="inputValue">Min:<input type="text" id="min" data-input="min"/></label>
-    <label for="max" class="inputValue">Max:<input type="text" id="max" data-input="max"/></label>
-    <div class="rangeslider">
-      <input data-thumb="min" name="range_1" type="range" min="1" max="100" value="10"
-      />
-      <input data-thumb="max" name="range_1" type="range" min="1" max="100" value="90"
-      />
-    </div>
+      'beforeend', `
+      <label for="min" class="inputValue">Min: 
+        <input type="text" id="min" data-input="min" />
+      </label>
+      <label for="max" class="inputValue">Max:
+        <input type="text" id="max" data-input="max" />
+      </label>
+      <div class="rangeslider">
+        <input
+          data-thumb="min"
+          name="range_1"
+          type="range"
+          min="1"
+          max="100"
+          value="10"
+        />
+        <input
+          data-thumb="max"
+          name="range_1"
+          type="range"
+          min="1"
+          max="100"
+          value="90"
+        />
+      </div>
     `,
     );
   };
